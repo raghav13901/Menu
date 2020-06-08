@@ -24,6 +24,7 @@
         narrow.items = menuSearchService.removeList();
         narrow.items = menuSearchService.getList();
         return menuSearchService.showItem(narrow.itemName);
+
       };
       narrow.removeItem = function(index){
         return  menuSearchService.remItem(index);
@@ -70,7 +71,6 @@
         });
       };
       s.getList = function(){
-        console.log(items.length);
         return items;
       };
       s.removeList = function(){
