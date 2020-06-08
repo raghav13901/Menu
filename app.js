@@ -10,7 +10,7 @@
         templateUrl:'foundItems.html',
         scope:{
           found:'<',
-          remove:'&'
+          remove:'&',
         }
       };
       return ddo;
@@ -29,6 +29,9 @@
       narrow.removeItem = function(index){
         return  menuSearchService.remItem(index);
       };
+      narrow.not = function(){
+        return false;
+      };
     }
 
     menuSearchService.$inject = ['$http'];
@@ -46,29 +49,37 @@
       };
 
       s.showItem = function(snm){
-        var promise = s.getMenu();
-        promise.then(function(response) {
-          var i = 0;
-          var count = 0;
-          for (i = 0; i < response.data.menu_items.length; i++) {
-            if ((response.data.menu_items[i].name.toUpperCase().indexOf(snm.toUpperCase()) !== -1)&&(snm !== "")) {
+        if(snm === undefined){
+          var item = {
+            name:'Nothing Found'
+          };
+          items.push(item);
+        }else{
+          var promise = s.getMenu();
+          promise.then(function(response) {
+            var i = 0;
+            var count = 0;
+            for (i = 0; i < response.data.menu_items.length; i++) {
+              if ((response.data.menu_items[i].name.toUpperCase().indexOf(snm.toUpperCase()) !== -1)&&(snm !== "")) {
+                var item = {
+                  name: response.data.menu_items[i].name,
+                  shortName: response.data.menu_items[i].short_name,
+                  desc: response.data.menu_items[i].description
+                };
+                items.push(item);
+
+              }
+            }
+            if(items.length === 0){
               var item = {
-                name: response.data.menu_items[i].name,
-                shortName: response.data.menu_items[i].short_name,
-                desc: response.data.menu_items[i].description
+                name:"Nothing Found"
               };
               items.push(item);
             }
-          }
-          if(items.length === 0){
-            var item = {
-              name:"Nothing Found"
-            };
-            items.push(item);
-          }
-        }).catch(function(error){
-          alert(error);
-        });
+          }).catch(function(error){
+            alert(error);
+          });
+        }
       };
       s.getList = function(){
         return items;
