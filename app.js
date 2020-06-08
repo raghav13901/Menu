@@ -7,7 +7,7 @@
     app.directive('foundItems',foundItems);
     function foundItems(){
       var ddo = {
-        template:'<ul><li ng-repeat = "item in found"><ul><li>{{item.name}}<br>{{item.shortName}}<br>{{item.desc}}</li></ul><button type="button" name="button" ng-click="remove({index:$index});">Remove Item</button></li></ul>',
+        templateUrl:'foundItems.html'
         scope:{
           found:'<',
           remove:'&'
