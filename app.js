@@ -7,7 +7,7 @@
     app.directive('foundItems',foundItems);
     function foundItems(){
       var ddo = {
-        templateUrl:'foundItems.html'
+        templateUrl:'foundItems.html',
         scope:{
           found:'<',
           remove:'&'
